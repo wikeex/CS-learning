@@ -1,0 +1,71 @@
+package main
+
+import "fmt"
+
+const MAXSIZE = 20
+
+// 顺序表的插入和删除
+type SqList struct {
+	data [MAXSIZE]interface{}
+	length int
+}
+
+func (s *SqList) ListInsert (i int, e interface{}) error {
+	var k int
+	if s.length >= MAXSIZE {
+		return fmt.Errorf("顺序表长度过长！")
+	}
+	if i > s.length || i < 0 {
+		return fmt.Errorf("插入位置错误")
+	}
+	if i < s.length {
+		for k = s.length - 1; k > i; k-- {
+			s.data[k+1] = s.data[k]
+		}
+	}
+	s.data[i] = e
+	s.length++
+	return nil
+}
+
+func (s *SqList) ListDelete (i int) error {
+	if s.length >= MAXSIZE {
+		return fmt.Errorf("顺序表长度超出范围！")
+	}
+	if i < 0 || i > s.length {
+		return fmt.Errorf("删除位置错误")
+	}
+	if i < s.length {
+		for k := i; k < s.length; k++ {
+			s.data[k] = s.data[k+1]
+		}
+		s.length--
+	}
+	return nil
+}
+
+// 单链表查询、插入和删除
+type Node struct {
+	data interface{}
+	next *Node
+}
+
+type LinkList Node
+
+// i从1开始数
+func (l *LinkList) GetElem(i int) (interface{}, error) {
+	p := l.next
+	j := 1
+	for j < i {
+		p = p.next
+		if p == nil {
+			break
+		}
+		j++
+	}
+	if p == nil || j > i {
+		return nil, fmt.Errorf("第i个节点不存在！")
+	}
+	return p.data, nil
+}
+
