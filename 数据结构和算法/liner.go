@@ -52,7 +52,7 @@ type Node struct {
 
 type LinkList Node
 
-// i从1开始数
+// 单链表查询，i从1开始数
 func (l *LinkList) GetElem(i int) (interface{}, error) {
 	p := l.next
 	j := 1
@@ -69,3 +69,23 @@ func (l *LinkList) GetElem(i int) (interface{}, error) {
 	return p.data, nil
 }
 
+// 单链表插入
+func (l *LinkList) ListInsert(i int, e interface{}) error {
+	p := l.next
+	s := Node{}
+	j := 1
+	for j < i {
+		p = p.next
+		if p == nil {
+			break
+		}
+		j++
+	}
+	if p == nil || j > i {
+		return fmt.Errorf("第i个节点不存在")
+	}
+	s.data = e
+	s.next = p.next
+	p.next = s
+	return nil
+}
