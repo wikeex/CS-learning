@@ -89,3 +89,23 @@ func (l *LinkList) ListInsert(i int, e interface{}) error {
 	p.next = s
 	return nil
 }
+
+// 单链表的删除
+func (l *LinkList) ListDelete(i int) error {
+	p := l.next
+	j := 1
+	for j < i {
+		p = p.next
+		if p == nil {
+			break
+		}
+		j++
+	}
+	if p == nil && j > i {
+		return fmt.Errorf("第i个节点不存在！")
+	}
+	q = p.next
+	p.next = q.next
+
+	return nil
+}
