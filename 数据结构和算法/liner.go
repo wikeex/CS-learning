@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const MAXSIZE = 20
 
@@ -130,11 +132,4 @@ func CreateListTail(nodes []*Node) *LinkList {
 	}
 	tail.next = nil
 	return &l
-}
-
-func main()  {
-	var nodes []*Node
-	nodes = []*Node{{data:0, next:nil}, {data:2, next:nil}, {data:3, next:nil}}
-	l := CreateListHead(nodes)
-	fmt.Print(l.data, l.next.data, l.next.next.data, l.next.next.next.data)
 }
