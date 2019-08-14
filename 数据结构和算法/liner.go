@@ -109,3 +109,26 @@ func (l *LinkList) ListDelete(i int) error {
 
 	return nil
 }
+
+// 单链表创建头插法
+func CreateListHead(nodes []Node) *LinkList {
+	l := LinkList{next: nil}
+	for _, node := range nodes {
+		 node.next = l.next
+		 l.next = &node
+	}
+	return &l
+}
+
+// 单链表创建尾插法
+func CreateListtail(nodes []Node) *LinkList {
+	l := LinkList{next: nil}
+	tail := l
+	for _, node := range nodes {
+		tail.next = &node
+		tail = node
+	}
+	tail.next = nil
+	return &l
+}
+
