@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const MAXSIZE = 20
 
@@ -50,7 +52,7 @@ type Node struct {
 	next *Node
 }
 
-type LinkList Node
+type LinkList = Node
 
 // 单链表查询，i从1开始数
 func (l *LinkList) GetElem(i int) (interface{}, error) {
@@ -86,7 +88,7 @@ func (l *LinkList) ListInsert(i int, e interface{}) error {
 	}
 	s.data = e
 	s.next = p.next
-	p.next = s
+	p.next = &s
 	return nil
 }
 
@@ -104,31 +106,30 @@ func (l *LinkList) ListDelete(i int) error {
 	if p == nil && j > i {
 		return fmt.Errorf("第i个节点不存在！")
 	}
-	q = p.next
+	q := p.next
 	p.next = q.next
 
 	return nil
 }
 
 // 单链表创建头插法
-func CreateListHead(nodes []Node) *LinkList {
+func CreateListHead(nodes []*Node) *LinkList {
 	l := LinkList{next: nil}
 	for _, node := range nodes {
 		 node.next = l.next
-		 l.next = &node
+		 l.next = node
 	}
 	return &l
 }
 
 // 单链表创建尾插法
-func CreateListtail(nodes []Node) *LinkList {
+func CreateListTail(nodes []*Node) *LinkList {
 	l := LinkList{next: nil}
-	tail := l
+	tail := &l
 	for _, node := range nodes {
-		tail.next = &node
+		tail.next = node
 		tail = node
 	}
 	tail.next = nil
 	return &l
 }
-
